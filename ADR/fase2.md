@@ -1,0 +1,8 @@
+| # | Descripción del problema | Archivo | Línea aprox. | Principio violado | Riesgo |
+|---|-------------------------|---------|--------------|-------------------|--------|
+| 1 | El login/registro recibe la contraseña por query params (`@RequestParam p`), lo que expone credenciales en URL, logs e historial del navegador. | AuthController.java | 18–27 | Seguridad básica (mínima exposición) | Alto |
+| 2 | No se usan DTOs ni `@RequestBody`; todo entra por parámetros sueltos, lo que hace más difícil validar los datos y mantener el código. | AuthController.java | 18–27 | Clean Code (contratos claros) | Medio |
+| 3 | Las respuestas usan `Map<String,Object>` en lugar de un DTO de respuesta, lo que permite estructuras inconsistentes y posible exposición de datos. | AuthController.java | 16–28 | Clean Code (tipado/claridad) | Medio |
+| 4 | Los endpoints propagan `throws Exception`, lo que genera manejo de errores poco controlado hacia el cliente. | AuthController.java | 18 y 25 | Clean Code (manejo de errores) | Medio |
+| 5 | No hay validaciones básicas de entrada (usuario vacío, email inválido, contraseña débil) en el controller o mediante DTOs. | AuthController.java | 18–28 | Clean Code / Seguridad | Medio |
+| 6 | No se evidencia ningún control de seguridad adicional (rate limit o bloqueo de intentos) en endpoints sensibles de autenticación. | AuthController.java | 16–30 | Seguridad básica | Medio |
